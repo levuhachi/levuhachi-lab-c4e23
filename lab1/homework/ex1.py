@@ -21,6 +21,6 @@ content = template.replace("{{sick}}",choice(sickness_list)).replace("{{advice}}
 message = Message("Đơn xin nghỉ làm", to="levuhachi.in@gmail.com", html = content)
 
 while True:
-    time = datetime.now().strftime("%I:%M %p")
-    if  "07:00 AM" < time < "08:00 AM":
+    time = datetime.now().strftime("%I:%M")
+    if  "09:13" < time < "09:15":
         gmail.send(message)
