@@ -10,24 +10,32 @@ raw_data = conn.read()
 page_content = raw_data.decode("utf8")
 
 soup = BeautifulSoup(page_content, "html.parser")
-table = soup.find(id="tableContent")
+table = soup.find('table',id="tableContent")
 
 tr_list = table.find_all("tr")
 
-kqhdkd = []
+data_list = []
 
-for tr in tr_list:
-    # for td in tr.stripped_strings:
-    #     title = td
-    #     print(title)
-    title = tr.contents
-    print(title)
+for t in tr_list:
+    td_list = t.find_all("td")
+    data = OrderedDict({})
 
+    if td_list and td_list[0] is not None and td_list[0].string is not None:
+        
+        data['Title'] = (td_list[0].string.strip())
+        
+        data['Term 4 - 2016'] = (td_list[1].string)
+        data['Term 3 - 2016'] = (td_list[2].string)
+        data['Term 2 - 2016'] = (td_list[3].string)
+        data['Term 1 - 2016'] = (td_list[4].string)
+    
+    
+    if data:
+        print(data)
+        data_list.append(data)
 
+# print(datas)
 
-
-
-
-
+pyexcel.save_as(records=data_list,dest_file_name="Financial_Report.xlsx")
 
 
